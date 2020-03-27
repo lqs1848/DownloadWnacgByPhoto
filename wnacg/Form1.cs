@@ -37,12 +37,12 @@ namespace wnacg
                 MessageBox.Show("请选择要解析的本子类型");
                 return;
             }
-            if(textBox1.Text == null)
+            if(textBox1.Text == null || textBox1.Text == "")
             {
                 MessageBox.Show("请输入要从第几页开始解析");
                 return;
             }
-            if (textBox2.Text == null)
+            if (textBox2.Text == null || textBox2.Text == "")
             {
                 MessageBox.Show("请输入要到第几页结束解析");
                 return;

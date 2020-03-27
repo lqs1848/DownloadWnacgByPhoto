@@ -50,9 +50,9 @@ namespace wnacg
         public void Collect() {
             string logpath = AppDomain.CurrentDomain.BaseDirectory;
             string dirPath = logpath + "data\\";
-               
+            if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
 
-                Comics = new List<Comic>();
+            Comics = new List<Comic>();
             for (int curPage= startPage; curPage <= endPage; curPage++) { 
                 _syncContext.Post(OutLog, "分析页面 page:"+curPage);
                 try
