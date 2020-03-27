@@ -46,14 +46,14 @@
             this.flowDlPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.flowOkPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.flowErrorPanel = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -70,14 +70,14 @@
             this.textCollectorLog.Name = "textCollectorLog";
             this.textCollectorLog.ReadOnly = true;
             this.textCollectorLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textCollectorLog.Size = new System.Drawing.Size(434, 294);
+            this.textCollectorLog.Size = new System.Drawing.Size(437, 294);
             this.textCollectorLog.TabIndex = 2;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(254, 63);
+            this.button2.Location = new System.Drawing.Point(109, 99);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(67, 26);
+            this.button2.Size = new System.Drawing.Size(75, 38);
             this.button2.TabIndex = 3;
             this.button2.Text = "解析";
             this.button2.UseVisualStyleBackColor = true;
@@ -85,22 +85,24 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(68, 66);
+            this.textBox1.Location = new System.Drawing.Point(311, 59);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(56, 21);
+            this.textBox1.Size = new System.Drawing.Size(50, 21);
             this.textBox1.TabIndex = 7;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.pageKeyPress);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(165, 65);
+            this.textBox2.Location = new System.Drawing.Point(403, 59);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(62, 21);
+            this.textBox2.Size = new System.Drawing.Size(50, 21);
             this.textBox2.TabIndex = 8;
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.pageKeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 70);
+            this.label1.Location = new System.Drawing.Point(265, 64);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 9;
@@ -109,7 +111,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(130, 70);
+            this.label2.Location = new System.Drawing.Point(369, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 10;
@@ -117,9 +119,9 @@
             // 
             // download
             // 
-            this.download.Location = new System.Drawing.Point(369, 121);
+            this.download.Location = new System.Drawing.Point(368, 99);
             this.download.Name = "download";
-            this.download.Size = new System.Drawing.Size(74, 21);
+            this.download.Size = new System.Drawing.Size(75, 38);
             this.download.TabIndex = 12;
             this.download.Text = "下载";
             this.download.UseVisualStyleBackColor = true;
@@ -130,9 +132,9 @@
             this.groupBox1.Controls.Add(this.radioButton3);
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(209, 12);
+            this.groupBox1.Location = new System.Drawing.Point(16, 45);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(244, 43);
+            this.groupBox1.Size = new System.Drawing.Size(243, 43);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "本子类型";
@@ -152,7 +154,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(77, 20);
+            this.radioButton2.Location = new System.Drawing.Point(81, 19);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(77, 16);
             this.radioButton2.TabIndex = 1;
@@ -164,7 +166,7 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(5, 21);
+            this.radioButton1.Location = new System.Drawing.Point(7, 19);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(59, 16);
             this.radioButton1.TabIndex = 0;
@@ -178,6 +180,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.flowErrorPanel);
             this.tabControl1.Location = new System.Drawing.Point(12, 147);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -232,38 +235,40 @@
             this.flowOkPanel.Size = new System.Drawing.Size(433, 298);
             this.flowOkPanel.TabIndex = 2;
             // 
-            // textBox3
+            // flowErrorPanel
             // 
-            this.textBox3.Location = new System.Drawing.Point(63, 12);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(140, 21);
-            this.textBox3.TabIndex = 14;
+            this.flowErrorPanel.Location = new System.Drawing.Point(4, 22);
+            this.flowErrorPanel.Name = "flowErrorPanel";
+            this.flowErrorPanel.Size = new System.Drawing.Size(433, 294);
+            this.flowErrorPanel.TabIndex = 3;
+            this.flowErrorPanel.Text = "失败";
+            this.flowErrorPanel.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 18);
+            this.label3.Location = new System.Drawing.Point(10, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 12);
+            this.label3.Size = new System.Drawing.Size(35, 12);
             this.label3.TabIndex = 15;
-            this.label3.Text = "地址：";
+            this.label3.Text = "地址:";
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(63, 38);
+            this.textBox4.Location = new System.Drawing.Point(311, 11);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(140, 21);
+            this.textBox4.Size = new System.Drawing.Size(142, 21);
             this.textBox4.TabIndex = 16;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 44);
+            this.label4.Location = new System.Drawing.Point(269, 15);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.Size = new System.Drawing.Size(35, 12);
             this.label4.TabIndex = 17;
-            this.label4.Text = "代理：";
+            this.label4.Text = "代理:";
             // 
             // comboBox1
             // 
@@ -280,54 +285,56 @@
             "8",
             "9",
             "10"});
-            this.comboBox1.Location = new System.Drawing.Point(273, 121);
+            this.comboBox1.Location = new System.Drawing.Point(273, 109);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(48, 20);
+            this.comboBox1.Size = new System.Drawing.Size(50, 20);
             this.comboBox1.TabIndex = 18;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(334, 125);
+            this.label5.Location = new System.Drawing.Point(329, 113);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 12);
             this.label5.TabIndex = 19;
             this.label5.Text = "线程";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(369, 63);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(74, 26);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "导出";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(165, 117);
+            this.button3.Location = new System.Drawing.Point(16, 99);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(74, 26);
+            this.button3.Size = new System.Drawing.Size(75, 38);
             this.button3.TabIndex = 21;
-            this.button3.Text = "导入";
+            this.button3.Text = "导入未完成";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "https://www.wnacg.wtf",
+            "https://wnacg.net",
+            "https://www.wnacg.org",
+            "https://www.wnacg.com"});
+            this.comboBox2.Location = new System.Drawing.Point(44, 11);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(219, 20);
+            this.comboBox2.TabIndex = 22;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 537);
+            this.ClientSize = new System.Drawing.Size(460, 474);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.download);
@@ -336,7 +343,10 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
+            this.MaximizeBox = false;
             this.Name = "Form1";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wnacg下载器";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -372,14 +382,14 @@
         private System.Windows.Forms.FlowLayoutPanel flowDlPanel;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.FlowLayoutPanel flowOkPanel;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TabPage flowErrorPanel;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }
 

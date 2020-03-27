@@ -22,12 +22,11 @@ namespace wnacg
         private void Form1_Load(object sender, EventArgs e)
         {
             this.comboBox1.Text = this.comboBox1.Items[0].ToString();
+            this.comboBox2.Text = this.comboBox2.Items[0].ToString();
             //this.textBox4.Text = Http.GetProxyServer();
-
         }
 
         private int radioType = -1;
-
 
         private List<Comic> Comics = null;
 
@@ -38,9 +37,19 @@ namespace wnacg
                 MessageBox.Show("请选择要解析的本子类型");
                 return;
             }
+            if(textBox1.Text == null)
+            {
+                MessageBox.Show("请输入要从第几页开始解析");
+                return;
+            }
+            if (textBox2.Text == null)
+            {
+                MessageBox.Show("请输入要到第几页结束解析");
+                return;
+            }
 
             button2.Enabled = false;
-            Collector cl = new Collector(SynchronizationContext.Current, int.Parse(textBox1.Text), int.Parse(textBox2.Text), radioType,textBox3.Text);
+            Collector cl = new Collector(SynchronizationContext.Current, int.Parse(textBox1.Text), int.Parse(textBox2.Text), radioType, comboBox2.Text);
             cl.CollectorLog += (o, text) => 
             {
                 if (text == "解析完成") {
@@ -50,13 +59,10 @@ namespace wnacg
             };
             cl.DownloadList += (o, text) =>
             {
-                
                 //this.dlList.AppendText(text);
             };
             cl.Start();
         }
-
-
 
         private void download_Click(object sender, EventArgs e)
         {
@@ -78,7 +84,7 @@ namespace wnacg
             tabControl1.SelectTab(1);
             comboBox1.Enabled = false;
             download.Enabled = false;
-            Download dw = new Download(SynchronizationContext.Current, Comics, int.Parse(comboBox1.Text), textBox3.Text);
+            Download dw = new Download(SynchronizationContext.Current, Comics, int.Parse(comboBox1.Text), comboBox2.Text);
             dw.DownloadLog += (o, text) => {
                 this.textCollectorLog.AppendText(text + "\r\n");
             };
@@ -127,6 +133,11 @@ namespace wnacg
                 {
                     this.flowDlPanel.Controls.Remove(p);
                     this.flowOkPanel.Controls.Add(p);
+                }
+                else if (((string)test).IndexOf("失败") != -1) 
+                {
+                    this.flowDlPanel.Controls.Remove(p);
+                    this.flowErrorPanel.Controls.Add(p);
                 }
             };
             dw.Start();
@@ -220,14 +231,17 @@ namespace wnacg
             Comics = new List<Comic>();
             string logpath = AppDomain.CurrentDomain.BaseDirectory;
             string dirPath = logpath + "data\\";
+            string historyPath = logpath + "download\\history\\";
             if (!Directory.Exists(dirPath)) return;
 
             List<string> files = new List<string>(Directory.GetFiles(dirPath));
             files.ForEach(filePath =>
             {
+                string title = System.IO.Path.GetFileNameWithoutExtension(filePath);
+                if (File.Exists(historyPath + title)) return ;
                 int x = 0;
                 Comic c = new Comic();
-                c.Title = System.IO.Path.GetFileNameWithoutExtension(filePath);
+                c.Title = title;
                 StreamReader sr = null;
                 try
                 {
@@ -255,12 +269,9 @@ namespace wnacg
                     if (sr != null) sr.Close();
                 }
             });
-
             Comics = RandomSortList(Comics);
-
             MessageBox.Show("导入数量为:"+Comics.Count);
         }
-
 
         public List<T> RandomSortList<T>(List<T> ListT)
         {
@@ -271,6 +282,14 @@ namespace wnacg
                 newList.Insert(random.Next(newList.Count + 1), item);
             }
             return newList;
+        }
+
+        private void pageKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsNumber(e.KeyChar)) {
+                e.Handled = true;
+                this.textCollectorLog.AppendText("页码只能输入数字\r\n");
+            }   
         }
     }//class
 }

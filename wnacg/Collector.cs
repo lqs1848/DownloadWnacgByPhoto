@@ -97,6 +97,30 @@ namespace wnacg
                         //ExeLog.WriteLog("downloadUrl_jpg.txt", _basePath + img + "\\" + title + ".jpg\r\n");
 
                         Comics.Add(comic);
+
+                        FileStream fs = null;
+                        StreamWriter sw = null;
+                        try
+                        {
+                            fs = new FileStream(fileStr, FileMode.Create, FileAccess.Write);//创建写入文件
+                            sw = new StreamWriter(fs);
+                            sw.WriteLine(comic.Id);
+                            sw.WriteLine(comic.Cover);
+                            foreach (int k in comic.Contents.Keys)
+                            {
+                                sw.WriteLine(k + "|" + comic.Contents[k]);
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                        finally
+                        {
+                            if (sw != null) sw.Close();
+                            if (fs != null) fs.Close();
+                        }
+
                         Thread.Sleep(100);
                     }//foreach
                     if (bzIndex != 12)
