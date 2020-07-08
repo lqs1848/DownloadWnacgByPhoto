@@ -80,7 +80,11 @@ namespace wnacg
                         comic.Id = mgid;
                         comic.Cover = img;
                         string detailPage = Http.GetHtml(_basePath + String.Format(detailPath, mgid));
-                        string homePhotoId = new Regex(@"<div class=""pic_box""><a href=""/photos-view-id-(\d*).html"">").Match(detailPage).Groups[1].Value;
+                        string homePhotoId = new Regex(@"<div class=""pic_box tb""><a href=""/photos-view-id-(\d*).html"">").Match(detailPage).Groups[1].Value;
+                        if (String.IsNullOrEmpty(homePhotoId)) {
+                            _syncContext.Post(OutLog, "解析失败!!!!!!无法获取图片ID.跳过 \r" + title + "");
+                            continue;
+                        }
                         string photoDetailPage = Http.GetHtml(_basePath + String.Format(photoPath, homePhotoId));
 
                         MatchCollection mats = new Regex(@"<option\s+value=""(\d+)"".*?>第(\d+)頁</option>").Matches(photoDetailPage);
@@ -88,7 +92,11 @@ namespace wnacg
                         {
                             comic.Contents.Add(int.Parse(m.Groups[2].Value), m.Groups[1].Value.Trim());
                         }
-
+                        if (comic.Contents.Count < 8)
+                        {
+                            _syncContext.Post(OutLog, "解析失败!!!!!!!!图片列表解析失败.跳过 \r" + title + "");
+                            continue;
+                        }
                         _syncContext.Post(OutLog, "提取 \r" + title + "");
 
                         //ExeLog.WriteLog("downloadUrl_zip.txt", dwUrl+"\\"+title+".zip\r\n");

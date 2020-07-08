@@ -1,4 +1,6 @@
 
 /.vs/
 /wnacg/bin/*
-
+/wnacg/obj/*
+*.cache
+wnacg/obj/Debug/wnacg.csproj.FileListAbsolute.txt

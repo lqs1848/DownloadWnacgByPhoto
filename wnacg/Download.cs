@@ -128,13 +128,18 @@ namespace wnacg
                     {
                         _syncContext.Post(DlTaskSchedule, c.Id + "|第"+x+"页下载失败");
                         goto cw;
-                    } 
-                    
+                    }
+                    FileInfo fileInfo = new System.IO.FileInfo(comicPath + Utils.parseNumName(k, 4) + Utils.getPhotoExt(photoUrl));
+                    if (!fileInfo.Exists || fileInfo.Length <= 100) {
+                        _syncContext.Post(DlTaskSchedule, c.Id + "|第" + x + "页下载失败");
+                        goto cw;
+                    }
+
                     _syncContext.Post(DlTaskSchedule, c.Id + "|" + x + "/" + c.Contents.Count);
                     x++;
                 }//for
-                _syncContext.Post(DlTaskSchedule, c.Id + "|压缩中...");
 
+                _syncContext.Post(DlTaskSchedule, c.Id + "|压缩中...");
 
                 if (ZipHelper.Zip(comicPath, downloadok + c.Title + ".zip"))
                 {
@@ -151,6 +156,7 @@ namespace wnacg
 
             _syncContext.Post(OutLog, "线程退出");
         }//method
+
 
         public bool HttpDownloadFile(string url, string path, string fileName)
         {
