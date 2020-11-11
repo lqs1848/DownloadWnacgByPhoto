@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,6 +22,12 @@ namespace wnacg
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
+                                       | SecurityProtocolType.Tls
+                                       | SecurityProtocolType.Tls11
+                                       | SecurityProtocolType.Tls12
+                                       ;
+
             this.comboBox1.Text = this.comboBox1.Items[0].ToString();
             this.comboBox2.Text = this.comboBox2.Items[0].ToString();
             //this.textBox4.Text = Http.GetProxyServer();

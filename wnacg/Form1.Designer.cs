@@ -308,6 +308,8 @@
             // 
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
+            "https://www.wnacg1.com",
+            "https://www.wnacg.fun",
             "https://www.wnacg.wtf",
             "https://wnacg.net",
             "https://www.wnacg.org",
