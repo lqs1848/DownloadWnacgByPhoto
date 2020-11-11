@@ -129,7 +129,7 @@ namespace wnacg
                         _syncContext.Post(DlTaskSchedule, c.Id + "|第"+x+"页下载失败");
                         goto cw;
                     }
-                    FileInfo fileInfo = new System.IO.FileInfo(comicPath + Utils.parseNumName(k, 4) + Utils.getPhotoExt(photoUrl));
+                    FileInfo fileInfo = new FileInfo(comicPath + Utils.parseNumName(k, 4) + Utils.getPhotoExt(photoUrl));
                     if (!fileInfo.Exists || fileInfo.Length <= 100) {
                         _syncContext.Post(DlTaskSchedule, c.Id + "|第" + x + "页下载失败");
                         goto cw;
@@ -158,6 +158,7 @@ namespace wnacg
         }//method
 
 
+
         public bool HttpDownloadFile(string url, string path, string fileName)
         {
             return HttpDownloadFile(url, path, fileName, 0);
@@ -170,7 +171,7 @@ namespace wnacg
                 Directory.CreateDirectory(path);
             
             if (File.Exists(filePath))
-                if (new System.IO.FileInfo(filePath).Length > 1024)
+                if (new FileInfo(filePath).Length > 1024)
                     return true;
 
             try
@@ -179,6 +180,11 @@ namespace wnacg
                 {
                     wc.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.136 YaBrowser/20.2.4.141 Yowser/2.5 Safari/537.36");
                     wc.DownloadFile(url, filePath);//保存到本地的文件名和路径，请自行更改
+                }
+                FileInfo fileInfo = new System.IO.FileInfo(filePath);
+                if (!fileInfo.Exists || fileInfo.Length <= 100)
+                {
+                    return false;
                 }
                 return true;
             }

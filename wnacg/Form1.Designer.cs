@@ -47,7 +47,6 @@
             this.flowDlPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.flowOkPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowErrorPanel = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -55,11 +54,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.flowErrorPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // textCollectorLog
@@ -181,7 +183,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.flowErrorPanel);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 147);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -235,15 +237,6 @@
             this.flowOkPanel.Name = "flowOkPanel";
             this.flowOkPanel.Size = new System.Drawing.Size(433, 298);
             this.flowOkPanel.TabIndex = 2;
-            // 
-            // flowErrorPanel
-            // 
-            this.flowErrorPanel.Location = new System.Drawing.Point(4, 22);
-            this.flowErrorPanel.Name = "flowErrorPanel";
-            this.flowErrorPanel.Size = new System.Drawing.Size(433, 294);
-            this.flowErrorPanel.TabIndex = 3;
-            this.flowErrorPanel.Text = "失败";
-            this.flowErrorPanel.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -324,6 +317,24 @@
             this.comboBox2.Size = new System.Drawing.Size(219, 20);
             this.comboBox2.TabIndex = 22;
             // 
+            // flowErrorPanel
+            // 
+            this.flowErrorPanel.AutoScroll = true;
+            this.flowErrorPanel.Location = new System.Drawing.Point(0, 0);
+            this.flowErrorPanel.Name = "flowErrorPanel";
+            this.flowErrorPanel.Size = new System.Drawing.Size(433, 298);
+            this.flowErrorPanel.TabIndex = 2;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.flowErrorPanel);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(433, 294);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "失败";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -358,6 +369,7 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -389,8 +401,9 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TabPage flowErrorPanel;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.FlowLayoutPanel flowErrorPanel;
     }
 }
 

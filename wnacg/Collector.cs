@@ -61,7 +61,7 @@ namespace wnacg
                     string listUrl = _basePath + String.Format(collectorPath, curPage, bzType);
                     //string listResult = client.GetStringAsync(listUrl).Result;
                     string listResult = Http.GetHtml(listUrl);
-                    Regex rgx = new Regex(@"<li class=""li gallary_item"">\s*?<div class=""pic_box"">\s*?<a href=""/photos-index-aid-(?<mgid>\d+).html""\s*title=""(?<title>.*?)""><img alt="".*?"" src=""(?<img>.*?)""");
+                    Regex rgx = new Regex(@"<li class=""li gallary_item"">\s*?<div class=""pic_box"">\s*?<a href=""/photos-index-aid-(?<mgid>\d+).html""\s*title=""(?<title>.*?)""><img alt="".*?"" data-original=""(?<img>.*?)""");
                     foreach (Match mch in rgx.Matches(listResult))
                     {
                         Comic comic = new Comic();
