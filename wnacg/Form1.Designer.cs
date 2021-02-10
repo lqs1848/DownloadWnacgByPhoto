@@ -47,6 +47,8 @@
             this.flowDlPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.flowOkPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.flowErrorPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -54,8 +56,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.flowErrorPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -238,6 +238,24 @@
             this.flowOkPanel.Size = new System.Drawing.Size(433, 298);
             this.flowOkPanel.TabIndex = 2;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.flowErrorPanel);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(433, 294);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "失败";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // flowErrorPanel
+            // 
+            this.flowErrorPanel.AutoScroll = true;
+            this.flowErrorPanel.Location = new System.Drawing.Point(0, 0);
+            this.flowErrorPanel.Name = "flowErrorPanel";
+            this.flowErrorPanel.Size = new System.Drawing.Size(433, 298);
+            this.flowErrorPanel.TabIndex = 2;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -249,20 +267,20 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(311, 11);
+            this.textBox4.Location = new System.Drawing.Point(324, 10);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(142, 21);
+            this.textBox4.Size = new System.Drawing.Size(132, 21);
             this.textBox4.TabIndex = 16;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(269, 15);
+            this.label4.Location = new System.Drawing.Point(265, 15);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 12);
+            this.label4.Size = new System.Drawing.Size(59, 12);
             this.label4.TabIndex = 17;
-            this.label4.Text = "代理:";
+            this.label4.Text = "http代理:";
             // 
             // comboBox1
             // 
@@ -318,24 +336,6 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(219, 20);
             this.comboBox2.TabIndex = 22;
-            // 
-            // flowErrorPanel
-            // 
-            this.flowErrorPanel.AutoScroll = true;
-            this.flowErrorPanel.Location = new System.Drawing.Point(0, 0);
-            this.flowErrorPanel.Name = "flowErrorPanel";
-            this.flowErrorPanel.Size = new System.Drawing.Size(433, 298);
-            this.flowErrorPanel.TabIndex = 2;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.flowErrorPanel);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(433, 294);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "失败";
-            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
