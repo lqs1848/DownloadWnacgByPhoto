@@ -105,6 +105,7 @@ namespace wnacg
                 if (!HttpDownloadFile(qz + c.Cover, comicPath, Utils.parseNumName(0, 4)))
                 {
                     _syncContext.Post(DlTaskSchedule, c.Id + "|封面下载失败");
+                    ExeLog.WriteLog("["+c.Title + "]封面下载失败\r\n" + "(" + (qz + c.Cover) + ")\r\n");
                     goto cw;
                 }
                 int x = 1;
@@ -120,6 +121,7 @@ namespace wnacg
                     catch (Exception e) 
                     {
                         _syncContext.Post(DlTaskSchedule, c.Id + "|第" + x + "页读取失败 e:"+e.Message);
+                        ExeLog.WriteLog("[" + c.Title + "]第" + x + "页读取失败\r\n" + "(" + _basePath + String.Format(photoPath, pid) + ")\r\n");
                         goto cw;
                     }
                     string photoUrl = qz + new Regex(@"<img id=""picarea"" class=""photo"" alt="".*?"" src=""(.*?)"" />").Match(photoPage).Groups[1].Value.Trim();
@@ -127,11 +129,13 @@ namespace wnacg
                     if (!HttpDownloadFile(photoUrl, comicPath, Utils.parseNumName(k, 4)))
                     {
                         _syncContext.Post(DlTaskSchedule, c.Id + "|第"+x+"页下载失败");
+                        ExeLog.WriteLog("[" + c.Title + "]第" + x + "页下载失败\r\n" + "(" + photoUrl + ")\r\n");
                         goto cw;
                     }
                     FileInfo fileInfo = new FileInfo(comicPath + Utils.parseNumName(k, 4) + Utils.getPhotoExt(photoUrl));
                     if (!fileInfo.Exists || fileInfo.Length <= 100) {
                         _syncContext.Post(DlTaskSchedule, c.Id + "|第" + x + "页下载失败");
+                        ExeLog.WriteLog("[" + c.Title + "]第" + x + "页下载失败\r\n" + "(" + photoUrl + ")\r\n");
                         goto cw;
                     }
 
@@ -150,6 +154,7 @@ namespace wnacg
                 else 
                 {
                     _syncContext.Post(DlTaskSchedule, c.Id + "|zip压缩失败");
+                    ExeLog.WriteLog("[" + c.Title + "]zip压缩失败\r\n");
                 }
             }//while comic
 
