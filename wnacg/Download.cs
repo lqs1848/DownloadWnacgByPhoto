@@ -187,7 +187,8 @@ namespace wnacg
                 using (System.Net.WebClient wc = new System.Net.WebClient())
                 {
                     if (!string.IsNullOrWhiteSpace(this._ProxyStr)) {
-                        wc.Proxy = new WebProxy(new Uri(this._ProxyStr));
+                        string[] proxys = this._ProxyStr.Split(':');
+                        wc.Proxy = new WebProxy(proxys[0], int.Parse(proxys[1]));
                     }
                     wc.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.136 YaBrowser/20.2.4.141 Yowser/2.5 Safari/537.36");
                     wc.DownloadFile(url, filePath);//保存到本地的文件名和路径，请自行更改
@@ -199,8 +200,9 @@ namespace wnacg
                 }
                 return true;
             }
-            catch 
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
                 try
                 {
                     if (File.Exists(filePath))
