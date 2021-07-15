@@ -29,8 +29,21 @@ namespace wnacg
                                        ;
 
             this.comboBox1.Text = this.comboBox1.Items[0].ToString();
-            this.comboBox2.Text = this.comboBox2.Items[0].ToString();
+            
             //this.textBox4.Text = Http.GetProxyServer();
+
+            IniFiles iniFile = new IniFiles("data.ini");
+            string path = iniFile.ReadString("wnacg", "path", "https://www.wnacg.com");
+            string[] paths = path.Split(',');
+            foreach (string p in paths)
+            {
+                comboBox2.Items.Add(p);
+            }
+            comboBox2.Text = comboBox2.Items[0].ToString();
+
+            string proxy = iniFile.ReadString("wnacg", "proxy", Http.GetProxyServer());
+            textBox4.Text = proxy;
+            Http.SetProxy(textBox4.Text);
         }
 
         private int radioType = -1;
@@ -91,7 +104,7 @@ namespace wnacg
             tabControl1.SelectTab(1);
             comboBox1.Enabled = false;
             download.Enabled = false;
-            Download dw = new Download(SynchronizationContext.Current, Comics, int.Parse(comboBox1.Text), comboBox2.Text);
+            Download dw = new Download(SynchronizationContext.Current, Comics, int.Parse(comboBox1.Text), comboBox2.Text,textBox4.Text);
             dw.DownloadLog += (o, text) => {
                 this.textCollectorLog.AppendText(text + "\r\n");
             };

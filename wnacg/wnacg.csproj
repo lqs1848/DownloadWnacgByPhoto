@@ -97,6 +97,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Comic.cs" />
+    <Compile Include="IniFiles.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Http.cs" />
     <Compile Include="Program.cs" />

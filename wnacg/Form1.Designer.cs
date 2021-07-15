@@ -325,13 +325,6 @@
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "https://www.wnacg1.com",
-            "https://www.wnacg.fun",
-            "https://www.wnacg.wtf",
-            "https://wnacg.net",
-            "https://www.wnacg.org",
-            "https://www.wnacg.com"});
             this.comboBox2.Location = new System.Drawing.Point(44, 11);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(219, 20);

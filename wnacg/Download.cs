@@ -27,7 +27,9 @@ namespace wnacg
         //线程数
         private int _CycleNum = 1;
 
-        public Download(SynchronizationContext formContext, List<Comic> comiclist, int cycleNum, string basePath)
+        private string _ProxyStr = null;
+
+        public Download(SynchronizationContext formContext, List<Comic> comiclist, int cycleNum, string basePath,string proxyStr = null)
         {
             this._syncContext = formContext;
             this.comics = new Queue<Comic>(comiclist);
@@ -36,6 +38,7 @@ namespace wnacg
                 this._basePath = basePath;
             if (this._basePath.StartsWith("https"))
                 qz = "https:";
+            this._ProxyStr = proxyStr;
         }
 
         private void OutLog(object state)
@@ -183,6 +186,9 @@ namespace wnacg
             {
                 using (System.Net.WebClient wc = new System.Net.WebClient())
                 {
+                    if (!string.IsNullOrWhiteSpace(this._ProxyStr)) {
+                        wc.Proxy = new WebProxy(new Uri(this._ProxyStr));
+                    }
                     wc.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.136 YaBrowser/20.2.4.141 Yowser/2.5 Safari/537.36");
                     wc.DownloadFile(url, filePath);//保存到本地的文件名和路径，请自行更改
                 }
