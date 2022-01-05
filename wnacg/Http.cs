@@ -22,13 +22,11 @@ namespace wnacg
         public static HttpWebRequest GetWebRequest(string url)
         {
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-            if (_proxy != null) request.Proxy = new WebProxy(_proxy);
+            if (!string.IsNullOrWhiteSpace(_proxy)) 
+                request.Proxy = new WebProxy(_proxy);
             return request;
         }
 
-        public static void HttpDownloadFile(string url, string path, string fileName)
-        { 
-        }
         public static void HttpDownloadFile(string url, string path, string fileName,int timeOut)
         {
             if (File.Exists(path + fileName))
@@ -73,9 +71,7 @@ namespace wnacg
         public static string GetHtml(string url, Encoding ed)
         {
             string Html = string.Empty;//初始化新的webRequst
-            HttpWebRequest Request = (HttpWebRequest)WebRequest.Create(url);
-            //Request.Proxy = new WebProxy(GetProxyServer());
-            if (_proxy!=null) Request.Proxy = new WebProxy(_proxy);
+            HttpWebRequest Request = GetWebRequest(url);
             Request.ProtocolVersion = HttpVersion.Version11;
             Request.Method = "GET";
             Request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 ";

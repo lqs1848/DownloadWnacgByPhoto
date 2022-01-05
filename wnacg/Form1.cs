@@ -181,7 +181,20 @@ namespace wnacg
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
+            //同人志
             this.radioType = 1;
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            //韩漫 汉化
+            this.radioType = 20;
+        }
+
+        private void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+            //Cosplay
+            this.radioType = 3;
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
@@ -311,5 +324,7 @@ namespace wnacg
                 this.textCollectorLog.AppendText("页码只能输入数字\r\n");
             }   
         }
+
+        
     }//class
 }
