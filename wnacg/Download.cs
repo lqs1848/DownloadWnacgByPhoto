@@ -106,16 +106,30 @@ namespace wnacg
                 _syncContext.Post(DlTaskStart, c.Id + "|" + c.Title);
 
                 //封面
-                if (!HttpDownloadImage(qz + c.Cover, comicPath, Utils.parseNumName(0, 4)))
+                if (!HttpDownloadImage(qz + c.Cover, comicPath, Utils.parseNumName(0, c.Contents.Count > 9999 ? 5 : 4)))
                 {
                     _syncContext.Post(DlTaskSchedule, c.Id + "|封面下载失败");
                     ExeLog.WriteLog("["+c.Title + "]封面下载失败\r\n" + "(" + (qz + c.Cover) + ")\r\n");
                     goto cw;
                 }
-                int x = 1;
+
+                Dictionary<string,string> lastDownloadFiles = new Dictionary<string,string>();
+                List<string> files = new List<string>(Directory.GetFiles(comicPath));
+                foreach(string f in files) 
+                {
+                    lastDownloadFiles.Add(System.IO.Path.GetFileNameWithoutExtension(f),f);
+                }//for
+
                 foreach (int k in c.Contents.Keys)
                 {
-                    _syncContext.Post(DlTaskSchedule, c.Id + "|" + x + "/" + c.Contents.Count);
+                    string nk = Utils.parseNumName(k, c.Contents.Count > 9999 ? 5 : 4);
+                    if (lastDownloadFiles.ContainsKey(nk)) {
+                        string lastFile = lastDownloadFiles[nk];
+                        if (new FileInfo(lastFile).Length > 1024 && IsCompletedImage(lastFile))
+                            continue;
+                    }
+
+                    _syncContext.Post(DlTaskSchedule, c.Id + "|" + nk + "/" + c.Contents.Count);
                     string pid = c.Contents[k];
                     string photoPage = null;
                     try
@@ -124,27 +138,27 @@ namespace wnacg
                     }
                     catch (Exception e) 
                     {
-                        _syncContext.Post(DlTaskSchedule, c.Id + "|第" + x + "页读取失败 e:"+e.Message);
-                        ExeLog.WriteLog("[" + c.Title + "]第" + x + "页读取失败\r\n" + "(" + _basePath + String.Format(photoPath, pid) + ")\r\n");
+                        _syncContext.Post(DlTaskSchedule, c.Id + "|第" + nk + "页读取失败 e:"+e.Message);
+                        ExeLog.WriteLog("[" + c.Title + "]第" + nk + "页读取失败\r\n" + "(" + _basePath + String.Format(photoPath, pid) + ")\r\n");
                         goto cw;
                     }
                     string photoUrl = qz + new Regex(@"<img id=""picarea"" class=""photo"" alt="".*?"" src=""(.*?)"" />").Match(photoPage).Groups[1].Value.Trim();
 
-                    if (!HttpDownloadImage(photoUrl, comicPath, Utils.parseNumName(k, 4)))
+                    if (!HttpDownloadImage(photoUrl, comicPath, nk))
                     {
-                        _syncContext.Post(DlTaskSchedule, c.Id + "|第"+x+"页下载失败");
-                        ExeLog.WriteLog("[" + c.Title + "]第" + x + "页下载失败\r\n" + "(" + photoUrl + ")\r\n");
+                        _syncContext.Post(DlTaskSchedule, c.Id + "|第"+ nk + "页下载失败");
+                        ExeLog.WriteLog("[" + c.Title + "]第" + nk + "页下载失败\r\n" + "(" + photoUrl + ")\r\n");
                         goto cw;
                     }
-                    FileInfo fileInfo = new FileInfo(comicPath + Utils.parseNumName(k, 4) + Utils.getPhotoExt(photoUrl));
+                    FileInfo fileInfo = new FileInfo(comicPath + nk + Utils.getPhotoExt(photoUrl));
                     if (!fileInfo.Exists || fileInfo.Length <= 100) {
-                        _syncContext.Post(DlTaskSchedule, c.Id + "|第" + x + "页下载失败");
-                        ExeLog.WriteLog("[" + c.Title + "]第" + x + "页下载失败\r\n" + "(" + photoUrl + ")\r\n");
+                        _syncContext.Post(DlTaskSchedule, c.Id + "|第" + nk + "页下载失败");
+                        ExeLog.WriteLog("[" + c.Title + "]第" + nk + "页下载失败\r\n" + "(" + photoUrl + ")\r\n");
                         goto cw;
                     }
 
-                    _syncContext.Post(DlTaskSchedule, c.Id + "|" + x + "/" + c.Contents.Count);
-                    x++;
+                    _syncContext.Post(DlTaskSchedule, c.Id + "|" + nk + "/" + c.Contents.Count);
+                    
                 }//for
 
                 _syncContext.Post(DlTaskSchedule, c.Id + "|压缩中...");
